@@ -3,7 +3,11 @@ package game
 import constants.Constants.COLUMN
 import constants.Constants.ROW
 import constants.Constants.WALL
+import constants.Constants.playerEndGameAtCoordinateXRoud1
+import constants.Constants.playerEndGameAtCoordinateXRoud2
 import constants.Constants.playerEndGameAtCoordinateXSingleRound
+import constants.Constants.playerEndGameAtCoordinateYRoud1
+import constants.Constants.playerEndGameAtCoordinateYRoud2
 import constants.Constants.playerEndGameAtCoordinateYSingleRound
 import constants.Constants.playerMoveDirections
 
@@ -18,7 +22,7 @@ class MazeSolver(
     private val listOfMoves = mutableListOf<VisitedCoordinates>()
     private lateinit var currentPosition: VisitedCoordinates
 
-    fun playGame(): List<VisitedCoordinates> {
+    fun playGameForOnlyOneRoad(): List<VisitedCoordinates> {
         //Add the player start position to the list of moves
         listOfMoves.addPlayerStartPositionCoordinates(playerStartPositionX, playerStartPositionY)
         //Set current position
@@ -42,7 +46,7 @@ class MazeSolver(
                     continue
                 }
 
-                if (maze.isMazeExistPoint(nextMove)) {
+                if (maze.isMazeExitingPointForSingleRoad(nextMove)) {
                     listOfMoves.add(nextMove)
                     hadFoundTheExit = true
                     break
@@ -63,6 +67,15 @@ class MazeSolver(
         return listOfMoves
     }
 
+    fun playGameForMultipleRoadsAndReturnTheShortestOne(): List<VisitedCoordinates> {
+        //I am starting this game from the premise that every step the player makes has the same value
+        //So at the end I will count the total number of steps that I had to make in order to reach the end
+
+
+
+        return emptyList()
+    }
+
 }
 
 
@@ -74,8 +87,12 @@ fun List<List<Int>>.isMoveValid(nextMove: VisitedCoordinates) =
     !((nextMove.mazeXPosition < 0 || nextMove.mazeYPosition >= this[0].size)
             || (nextMove.mazeYPosition < 0 || nextMove.mazeYPosition >= this[0].size))
 
-fun List<List<Int>>.isMazeExistPoint(nextMove: VisitedCoordinates) =
+fun List<List<Int>>.isMazeExitingPointForSingleRoad(nextMove: VisitedCoordinates) =
     (nextMove.mazeXPosition == playerEndGameAtCoordinateXSingleRound && nextMove.mazeYPosition == playerEndGameAtCoordinateYSingleRound)
+
+fun List<List<Int>>.isMazeExitingPointForMultipleRoads(nextMove: VisitedCoordinates) =
+    (nextMove.mazeXPosition == playerEndGameAtCoordinateXRoud1 && nextMove.mazeYPosition == playerEndGameAtCoordinateYRoud1)
+            || (nextMove.mazeXPosition == playerEndGameAtCoordinateXRoud2 && nextMove.mazeYPosition == playerEndGameAtCoordinateYRoud2)
 
 fun MutableList<VisitedCoordinates>.isExplored(nextMove: VisitedCoordinates) =
     any { it.mazeXPosition == nextMove.mazeXPosition && it.mazeYPosition == nextMove.mazeYPosition }
