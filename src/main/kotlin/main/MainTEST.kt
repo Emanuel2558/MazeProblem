@@ -11,7 +11,7 @@ class MainTEST {
         @JvmStatic
         fun main(args: Array<String>) {
             val game = MazeSolver(mazeOnlyOneRoad, playerStartX, playerStartY)
-            println("Path to exit is: ${game.playGame().map { "(${it.mazeXPosition},${it.mazeYPosition})" }}")
+            println("Path to exit is: ${game.playGameForOnlyOneRoad().map { "(${it.mazeXPosition},${it.mazeYPosition})" }}")
 
         }
     }
