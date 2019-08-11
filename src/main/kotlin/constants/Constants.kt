@@ -37,6 +37,11 @@ object Constants {
         listOf(1, 0, 1, 0, 1), listOf(0, 0, 0, 0, 1), listOf(1, 1, 1, 0, 0)
     )
 
+    const val playerEndGameAtCoordinateXRoud1 = 1
+    const val playerEndGameAtCoordinateYRoud1 = 4
+    const val playerEndGameAtCoordinateXRoud2 = 4
+    const val playerEndGameAtCoordinateYRoud2 = 4
+
     //endregion
 
     const val playerStartX = 3
